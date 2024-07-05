@@ -99,16 +99,27 @@ def update_database(songs_ref, backup_ref, unique_songs):
 
 
 if __name__ == "__main__":
+    print("Starting Firebase uploader")
+
     initialize_firebase()
+    print("Firebase initialized correctly")
 
     songs_ref = db.reference("/songs")
     backup_ref = db.reference("/songs_backup")
+    print("Database references created")
 
     songs = backup_songs(songs_ref, backup_ref)
+    print("Backup created/updated")
+
     unique_songs = get_unique_songs(songs)
+    print("Unique songs created")
+
     update_songs_from_file(
         unique_songs,
         set(song["title"] for song in unique_songs),
         "data/scrapped_songs.json",
     )
+    print("Scrapped songs added")
+
     update_database(songs_ref, backup_ref, unique_songs)
+    print("Database updated")

@@ -72,14 +72,20 @@ async def scrape_song_data(page, href):
 async def chillhop_scraper():
     pages = 2
     browser = await pyppeteer.launch()
+    print("Browser launched")
     page = await browser.newPage()
+    print("Page opened")
     hrefs = await get_hrefs(page, pages)
+    print("Got hrefs")
     data = []
     for href in hrefs:
         song_data = await scrape_song_data(page, href)
+        print(f"Scraped {len(song_data)} songs")
         data.extend(song_data)
     await browser.close()
+    print("Browser closed")
     save_data(data)
+    print("Data saved")
 
 
 if __name__ == "__main__":
