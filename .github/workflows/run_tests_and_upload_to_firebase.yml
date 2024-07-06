@@ -43,6 +43,11 @@ jobs:
         run: |
           python -m unittest discover -s tests -p "test_*.py"
 
+      - name: Debug Environment Variables
+        run: |
+          echo "FIREBASE_TYPE: ${{ env.FIREBASE_TYPE }}"
+          echo "FIREBASE_PROJECT_ID: ${{ env.FIREBASE_PROJECT_ID }}"
+
       - name: Check test status and run scraper/Firebase uploader
         if: ${{ steps.test.outcome == 'success' }}
         run: |
